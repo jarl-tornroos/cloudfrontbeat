@@ -11,7 +11,7 @@ cloudfrontbeat:
   sleep: 60
 
   # Environment name is used for aws configuration in ~/.aws/config
-  environment: private
+  environment: staging
 
   # Simultaneously running workers
   workers: 2
@@ -26,7 +26,7 @@ cloudfrontbeat:
   geo_manager: maxmind
 
   # Location to the geo ip database
-  max_mind_db: /Users/jarl/GeoLite2-City.mmdb
+  max_mind_db: GeoLite2-City.mmdb
 
   ########### Back fill ###########
 
@@ -65,7 +65,7 @@ cloudfrontbeat:
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["elasticsearch:9200"]
+  hosts: ["localhost:9200"]
 
   # The maximum number of events to bulk in a single Elasticsearch bulk API index request.
   # The default is 50.
