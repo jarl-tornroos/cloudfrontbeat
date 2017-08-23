@@ -1,0 +1,213 @@
+{
+  "mappings": {
+    "_default_": {
+      "_meta": {
+        "version": "5.4.4"
+      },
+      "date_detection": false,
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "beat": {
+          "properties": {
+            "hostname": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "c_ip": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_bytes": {
+          "type": "long"
+        },
+        "cs_cookie": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_host": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_method": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_protocol": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_protocol_version": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_referer": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_uri_query": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_uri_stem": {
+          "norms": false,
+          "type": "text"
+        },
+        "cs_user_agent": {
+          "norms": false,
+          "type": "text"
+        },
+        "date": {
+          "norms": false,
+          "type": "text"
+        },
+        "geoip": {
+          "properties": {
+            "city": {
+              "norms": false,
+              "type": "text"
+            },
+            "continent": {
+              "norms": false,
+              "type": "text"
+            },
+            "continent_code": {
+              "norms": false,
+              "type": "text"
+            },
+            "country": {
+              "norms": false,
+              "type": "text"
+            },
+            "country_code": {
+              "norms": false,
+              "type": "text"
+            },
+            "latitude": {
+              "type": "double"
+            },
+            "location": {
+              "type": "geo_point"
+            },
+            "longitude": {
+              "type": "double"
+            },
+            "region": {
+              "norms": false,
+              "type": "text"
+            }
+          }
+        },
+        "meta": {
+          "properties": {
+            "cloud": {
+              "properties": {
+                "availability_zone": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "instance_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "machine_type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "project_id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "provider": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "region": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "sc_bytes": {
+          "type": "long"
+        },
+        "sc_status": {
+          "type": "short"
+        },
+        "ssl_cipher": {
+          "norms": false,
+          "type": "text"
+        },
+        "ssl_protocol": {
+          "norms": false,
+          "type": "text"
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "time": {
+          "norms": false,
+          "type": "text"
+        },
+        "time_taken": {
+          "type": "float"
+        },
+        "x_edge_location": {
+          "norms": false,
+          "type": "text"
+        },
+        "x_edge_request_id": {
+          "norms": false,
+          "type": "text"
+        },
+        "x_edge_response_result_type": {
+          "norms": false,
+          "type": "text"
+        },
+        "x_edge_result_type": {
+          "norms": false,
+          "type": "text"
+        },
+        "x_forwarded_for": {
+          "norms": false,
+          "type": "text"
+        },
+        "x_host_header": {
+          "norms": false,
+          "type": "text"
+        }
+      }
+    }
+  },
+  "order": 0,
+  "settings": {
+    "index.mapping.total_fields.limit": 10000,
+    "index.refresh_interval": "5s"
+  },
+  "template": "cloudfrontbeat-*"
+}

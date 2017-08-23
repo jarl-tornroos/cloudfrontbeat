@@ -1,0 +1,73 @@
+- key: cloudfrontbeat
+  title: cloudfrontbeat
+  description: >
+    CloudFront log data with additional geo location
+  fields:
+    - name: date
+      type: text
+      required: true
+    - name: time
+      type: text
+      required: true
+    - name: x_edge_location
+      type: text
+    - name: sc_bytes
+      type: long
+    - name: c_ip
+      type: text
+    - name: cs_method
+      type: text
+    - name: cs_host
+      type: text
+    - name: cs_uri_stem
+      type: text
+    - name: sc_status
+      type: short
+    - name: cs_referer
+      type: text
+    - name: cs_user_agent
+      type: text
+    - name: cs_uri_query
+      type: text
+    - name: cs_cookie
+      type: text
+    - name: x_edge_result_type
+      type: text
+    - name: x_edge_request_id
+      type: text
+    - name: x_host_header
+      type: text
+    - name: cs_protocol
+      type: text
+    - name: cs_bytes
+      type: integer
+    - name: time_taken
+      type: float
+    - name: x_forwarded_for
+      type: text
+    - name: ssl_protocol
+      type: text
+    - name: ssl_cipher
+      type: text
+    - name: x_edge_response_result_type
+      type: text
+    - name: cs_protocol_version
+      type: text
+    - name: geoip.country_code
+      type: text
+    - name: geoip.country
+      type: text
+    - name: geoip.region
+      type: text
+    - name: geoip.city
+      type: text
+    - name: geoip.continent_code
+      type: text
+    - name: geoip.continent
+      type: text
+    - name: geoip.latitude
+      type: double
+    - name: geoip.longitude
+      type: double
+    - name: geoip.location
+      type: geo_point

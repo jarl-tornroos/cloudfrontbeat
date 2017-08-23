@@ -1,0 +1,306 @@
+{
+  "mappings": {
+    "_default_": {
+      "_all": {
+        "norms": {
+          "enabled": false
+        }
+      },
+      "_meta": {
+        "version": "5.4.4"
+      },
+      "date_detection": false,
+      "dynamic_templates": [
+        {
+          "strings_as_keyword": {
+            "mapping": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "beat": {
+          "properties": {
+            "hostname": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            }
+          }
+        },
+        "c_ip": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_bytes": {
+          "type": "long"
+        },
+        "cs_cookie": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_host": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_method": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_protocol": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_protocol_version": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_referer": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_uri_query": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_uri_stem": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "cs_user_agent": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "date": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "geoip": {
+          "properties": {
+            "city": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "continent": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "continent_code": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "country": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "country_code": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "latitude": {
+              "type": "double"
+            },
+            "location": {
+              "type": "geo_point"
+            },
+            "longitude": {
+              "type": "double"
+            },
+            "region": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            }
+          }
+        },
+        "meta": {
+          "properties": {
+            "cloud": {
+              "properties": {
+                "availability_zone": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "instance_id": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "machine_type": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "project_id": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "provider": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                },
+                "region": {
+                  "ignore_above": 1024,
+                  "index": "not_analyzed",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "sc_bytes": {
+          "type": "long"
+        },
+        "sc_status": {
+          "type": "short"
+        },
+        "ssl_cipher": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "ssl_protocol": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "tags": {
+          "ignore_above": 1024,
+          "index": "not_analyzed",
+          "type": "string"
+        },
+        "time": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "time_taken": {
+          "type": "float"
+        },
+        "x_edge_location": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "x_edge_request_id": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "x_edge_response_result_type": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "x_edge_result_type": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "x_forwarded_for": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        },
+        "x_host_header": {
+          "index": "analyzed",
+          "norms": {
+            "enabled": false
+          },
+          "type": "string"
+        }
+      }
+    }
+  },
+  "order": 0,
+  "settings": {
+    "index.refresh_interval": "5s"
+  },
+  "template": "cloudfrontbeat-*"
+}

@@ -1,0 +1,103 @@
+############################# Cloudfrontbeat ######################################
+
+cloudfrontbeat:
+  # Type is the elasticsearch _type field
+  type: cloudfrontbeat
+
+  # Action to run, worker or backfill
+  action: worker
+
+  # Define sleep time in seconds if queue is empty
+  sleep: 60
+
+  # Environment name is used for aws configuration in ~/.aws/config
+  environment: private
+
+  # Simultaneously running workers
+  workers: 2
+
+  # Region for AWS services
+  region: eu-west-1
+
+  # SQS name for the queue
+  queue_name: cloudfrontbeat
+
+  # Geo IP manager (currently only maxmind is supported)
+  geo_manager: maxmind
+
+  # Location to the geo ip database
+  max_mind_db: /Users/jarl/GeoLite2-City.mmdb
+
+  ########### Back fill ###########
+
+  # Start date for back filling, format YYYY-MM-DD
+  start_date: 2017-01-01
+
+  # End date for back filling, format YYYY-MM-DD
+  end_date: 2017-01-01
+
+  # Bucket for CloudFront logs
+  s3_bucket: cflogs
+
+  # CloudFront distributions
+  distributions: ["prefix/CF_DISTRIBUTION"]
+
+#================================ General =====================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+#name:
+
+# The tags of the shipper are included in their own field with each
+# transaction published.
+#tags: ["service-X", "web-tier"]
+
+# Optional fields that you can specify to add additional information to the
+# output.
+#fields:
+#  env: staging
+
+#================================ Outputs =====================================
+
+# Configure what outputs to use when sending the data collected by the beat.
+# Multiple outputs may be used.
+
+#-------------------------- Elasticsearch output ------------------------------
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["elasticsearch:9200"]
+
+  # The maximum number of events to bulk in a single Elasticsearch bulk API index request.
+  # The default is 50.
+  bulk_max_size: 1000
+
+  # Optional protocol and basic auth credentials.
+  #protocol: "https"
+  #username: "elastic"
+  #password: "changeme"
+
+#----------------------------- Logstash output --------------------------------
+#output.logstash:
+  # The Logstash hosts
+  #hosts: ["localhost:5044"]
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+#================================ Logging =====================================
+
+# Sets log level. The default log level is info.
+# Available log levels are: critical, error, warning, info, debug
+#logging.level: debug
+
+# At debug level, you can selectively enable logging only for some components.
+# To enable all selectors use ["*"]. Examples of other selectors are "beat",
+# "publish", "service".
+#logging.selectors: ["*"]

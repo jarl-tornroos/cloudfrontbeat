@@ -1,0 +1,5 @@
+= Cloudfrontbeat Docs
+
+Welcome to the Cloudfrontbeat documentation.
+
+

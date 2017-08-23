@@ -1,0 +1,43 @@
+############################# Cloudfrontbeat ######################################
+
+cloudfrontbeat:
+  # Type is the elasticsearch _type field
+  type: cloudfrontbeat
+
+  # Action to run, worker or backfill
+  action: worker
+
+  # Define sleep time in seconds if queue is empty
+  sleep: 60
+
+  # Environment name is used for aws configuration in ~/.aws/config
+  environment: staging
+
+  # Simultaneously running workers
+  workers: 2
+
+  # Region for AWS services
+  region: eu-west-1
+
+  # SQS name for the queue
+  queue_name: cloudfrontbeat
+
+  # Geo IP manager (currently only maxmind is supported)
+  geo_manager: maxmind
+
+  # Location to the geo ip database
+  max_mind_db: GeoIP2-City.mmdb
+
+  ########### Backfill ###########
+
+  # Start date for backfilling, format YYYY-MM-DD
+  start_date: 2017-01-01
+
+  # End date for backfilling, format YYYY-MM-DD
+  end_date: 2017-01-01
+
+  # Bucket for CloudFront logs
+  s3_bucket: cflogs
+
+  # CloudFront distributions
+  distributions: ["prefix/CF_DISTRIBUTION"]
