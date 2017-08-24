@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: SQS queue for Cloudfrontbeat
+Parameters:
+  QueueName:
+    Description: Queue Name (passed in from main template)
+    Type: String
+  BucketName:
+    Description: Bucket Name (passed in from main template)
+    Type: String
+
+Resources:
+  CloudfrontbeatQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Ref QueueName
+      VisibilityTimeout: 300
+      MessageRetentionPeriod: 345600
+      MaximumMessageSize: 262144
+
+  CloudfrontbeatQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument: !Sub |
+        {
+          "Version": "2008-10-17",
+          "Id": "s3-cloudfrontbeat-logs",
+          "Statement": [
+            {
+              "Sid": "s3-cloudfrontbeat-logs",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": "SQS:SendMessage",
+              "Resource": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:${QueueName}",
+              "Condition": {
+                "ArnLike": {
+                  "aws:SourceArn": "arn:aws:s3:*:*:${BucketName}"
+                }
+              }
+            }
+          ]
+        }
+      Queues:
+      - !Ref CloudfrontbeatQueue
+
+Outputs:
+  QueueURL:
+    Description: URL of newly created SQS Queue
+    Value: !Ref CloudfrontbeatQueue
+  QueueARN:
+    Description: ARN of newly created SQS Queue
+    Value: !GetAtt CloudfrontbeatQueue.Arn
+  QueueName:
+    Description: Name of newly created SQS Queue
+    Value: !GetAtt CloudfrontbeatQueue.QueueName

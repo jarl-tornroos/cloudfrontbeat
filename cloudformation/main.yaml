@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Cloudfrontbeat Configuration
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+    - Label:
+        default: Cloudfrontbeat settings
+      Parameters:
+      - TemplateBucketName
+      - BucketName
+      - QueueName
+    ParameterLabels:
+      TemplateBucketName:
+        default: S3 Bucket
+      BucketName:
+        default: S3 Bucket
+      QueueName:
+        default: SQS Queue
+
+Parameters:
+  TemplateBucketName:
+    Description: S3 bucket name where the cloudformation templates are located
+    Type: String
+  BucketName:
+    Description: S3 bucket name for CloudFront logs
+    Type: String
+  QueueName:
+    Description: SQS queue name for CloudFront
+    Type: String
+
+Resources:
+  SQSTemplate:
+    Properties:
+      TemplateURL: !Sub https://s3-${AWS::Region}.amazonaws.com/${TemplateBucketName}/cloudfrontbeat/sqs_queue.yaml
+      TimeoutInMinutes: 10
+      Parameters:
+        QueueName: !Ref QueueName
+        BucketName: !Ref BucketName
+    Type: AWS::CloudFormation::Stack
+
+  S3BucketTemplate:
+    DependsOn:
+    - SQSTemplate
+    Properties:
+      TemplateURL: !Sub https://s3-${AWS::Region}.amazonaws.com/${TemplateBucketName}/cloudfrontbeat/s3_bucket.yaml
+      TimeoutInMinutes: 10
+      Parameters:
+        BucketName: !Ref BucketName
+        QueueARN: !GetAtt SQSTemplate.Outputs.QueueARN
+    Type: AWS::CloudFormation::Stack
+
+Outputs:
+  CloudfrontbeatStackLocation:
+    Description: Cloudfrontbeat stack location
+    Value: !Sub https://s3-${AWS::Region}.amazonaws.com/${TemplateBucketName}/cloudfrontbeat/main.yaml
