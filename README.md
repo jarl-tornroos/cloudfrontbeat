@@ -32,6 +32,8 @@ Note: the SQS queue need to have "Default Visibility Timeout" set to at least 5 
 
 You can follow this [example](http://docs.aws.amazon.com/AmazonS3/latest/dev/ways-to-add-notification-config-to-bucket.html) to configure a bucket for notifications (with SQS queue as message destination)
 
+You can also use CloudFormation to provision your environment, you can use the [provided templates](/cloudformation) which will provision the S3 bucket and the SQS queue.
+
 #### Access control configuration
 
 Cloudfrontbeat supports usage of IAM roles, API keys in environment variables and API key in a credential file. It is preferable to use IAM roles if Cloudfrontbeat is run from an EC2 instance.
@@ -48,6 +50,8 @@ Cloudfrontbeat support MixMind's geolocation database. [MaxMind's GeoLite2 City]
 4. Download the IP Geolocation database
 5. Build Cloudfrontbeat using the instructions above
 6. Modify the included cloudfrontbeat.yml for your application
+
+You can also use the [provided CloudFormation templates](/cloudformation) to provision the S3 bucket and the SQS queue.
 
 To run Cloudfrontbeat, run:
 
