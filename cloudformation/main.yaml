@@ -6,8 +6,8 @@ Metadata:
     - Label:
         default: Cloudfrontbeat settings
       Parameters:
-      - BucketName
       - TemplateBucketName
+      - BucketName
       - QueueName
     ParameterLabels:
       TemplateBucketName:
