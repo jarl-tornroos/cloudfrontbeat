@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: S3 bucket for Cloudfrontbeat
+Parameters:
+  BucketName:
+    Description: Bucket Name (passed in from main template)
+    Type: String
+
+Resources:
+  S3Bucket:
+    Properties:
+      AccessControl: Private
+      BucketName: !Ref BucketName
+      Tags:
+      - Key: Name
+        Value: !Ref BucketName
+    Type: AWS::S3::Bucket
+
+Outputs:
+  BucketName:
+    Description: S3 bucket name
+    Value: !Ref S3Bucket
+  DomainName:
+    Description: Domain name for S3 bucket
+    Value: !GetAtt S3Bucket.DomainName
