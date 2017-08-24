@@ -22,10 +22,10 @@ Parameters:
     Description: S3 bucket name where the cloudformation templates are located
     Type: String
   BucketName:
-    Description: S3 bucket name for cloudfront logs
+    Description: S3 bucket name for CloudFront logs
     Type: String
   QueueName:
-    Description: SQS queue name for cloudformation
+    Description: SQS queue name for CloudFront
     Type: String
 
 Resources:
@@ -46,6 +46,7 @@ Resources:
       TimeoutInMinutes: 10
       Parameters:
         BucketName: !Ref BucketName
+        QueueARN: !GetAtt SQSTemplate.Outputs.QueueARN
     Type: AWS::CloudFormation::Stack
 
 Outputs:

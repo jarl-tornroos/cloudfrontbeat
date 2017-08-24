@@ -4,16 +4,23 @@ Parameters:
   BucketName:
     Description: Bucket Name (passed in from main template)
     Type: String
+  QueueARN:
+    Description: SQS queue ARN (passed in from main template)
+    Type: String
 
 Resources:
   S3Bucket:
+    Type: AWS::S3::Bucket
     Properties:
       AccessControl: Private
       BucketName: !Ref BucketName
+      NotificationConfiguration:
+        QueueConfigurations:
+        - Queue: !Ref QueueARN
+          Event: s3:ObjectCreated:*
       Tags:
       - Key: Name
         Value: !Ref BucketName
-    Type: AWS::S3::Bucket
 
 Outputs:
   BucketName:
