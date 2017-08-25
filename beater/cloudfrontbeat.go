@@ -37,8 +37,6 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 
 // Run the specified action
 func (bt *Cloudfrontbeat) Run(b *beat.Beat) error {
-
-	// TODO: logging in all areas
 	var err error
 
 	// Create stop object to add and publish to observers

@@ -42,6 +42,8 @@ func (bf *BackFillAction) Do() error {
 		return err
 	}
 
+	logp.Info("Backfilling logs from %s to %s", fromDate, endDate)
+
 	// Loop trough day by day and publish log files to the queue
 	for fromDate <= endDate {
 		// If Ctrl + C was hit and we want to exit
@@ -90,7 +92,6 @@ func (bf *BackFillAction) nextDay(date string) string {
 // addLogFilesToQueue list all log files for the given date and insert
 // references to them in the queue
 func (bf *BackFillAction) addLogFilesToQueue(date string) error {
-
 	var err error
 	var filesList []string
 
@@ -103,7 +104,15 @@ func (bf *BackFillAction) addLogFilesToQueue(date string) error {
 		filesList = append(filesList, *files...)
 	}
 
+	if len(filesList) > 0 {
+		logp.Info("Backfilling logs for %s", date)
+	} else {
+		logp.Info("Found no logs for %s", date)
+	}
+
 	for _, file := range filesList {
+		logp.Debug("backfill", "Notifying queue about file %s", file)
+
 		// Create Sqs message that have the same structure as S3 notification
 		bf.SqsMessage.SetFile(file, bf.Config.S3Bucket)
 

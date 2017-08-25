@@ -28,12 +28,12 @@ cloudfrontbeat:
   # Location to the geo ip database
   max_mind_db: GeoIP2-City.mmdb
 
-  ########### Back fill ###########
+  ########### Backfill ###########
 
-  # Start date for back filling, format YYYY-MM-DD
+  # Start date for backfilling, format YYYY-MM-DD
   start_date: 2017-01-01
 
-  # End date for back filling, format YYYY-MM-DD
+  # End date for backfilling, format YYYY-MM-DD
   end_date: 2017-01-01
 
   # Bucket for CloudFront logs
