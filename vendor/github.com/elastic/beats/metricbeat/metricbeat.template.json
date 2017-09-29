@@ -1,11 +1,8 @@
 {
   "mappings": {
     "_default_": {
-      "_all": {
-        "norms": false
-      },
       "_meta": {
-        "version": "5.4.4"
+        "version": "5.6.3"
       },
       "date_detection": false,
       "dynamic_templates": [
@@ -1269,7 +1266,8 @@
                           "type": "long"
                         },
                         "last": {
-                          "type": "long"
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         }
                       }
                     },
