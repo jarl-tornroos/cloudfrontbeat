@@ -6,4 +6,5 @@
 /cloudfrontbeat.test
 *.pyc
 
-/logs/*
+/logs
+/data

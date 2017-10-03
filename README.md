@@ -15,11 +15,21 @@ Ensure that this folder is at the following location:
 
 ### Build
 
-To build the binary for Cloudfrontbeat run the command below. This will generate a binary
-in the same directory with the name cloudfrontbeat.
+To build the binary for Cloudfrontbeat run the command below. This will generate a binary in the same directory with the name cloudfrontbeat.
 
-```
+```bash
 make
+```
+
+It is also possible to compile the binary in a Docker container without the need for installing the dependencies on the host. This command will generate a binary for linux/amd64 in the same directory with the name cloudfrontbeat.
+
+```bash
+docker run --rm \
+--mount type=bind,source="$(pwd)",target=/go/src/github.com/jarl-tornroos/cloudfrontbeat \
+-w /go/src/github.com/jarl-tornroos/cloudfrontbeat golang:1.9 \
+bash -c "go get github.com/aws/aws-sdk-go/... && \
+go get github.com/oschwald/geoip2-golang/... && \
+make"
 ```
 
 ### AWS Configuration
@@ -55,7 +65,7 @@ You can also use the [provided CloudFormation templates](/cloudformation) to pro
 
 To run Cloudfrontbeat, run:
 
-```
+```bash
 ./cloudfrontbeat -c cloudfrontbeat.yml -e
 ```
 
@@ -67,6 +77,63 @@ The action value need to be backfill.
 
 You can also overwrite the values from the command line with e.g.
 
-```
+```bash
 ./cloudfrontbeat -e -E cloudfrontbeat='{action:backfill,start_date:2017-08-22,end_date:2017-08-23}'
+```
+
+### Running Cloudfrontbeat on Docker
+
+Docker images for Cloudfrontbeat are available from the Docker Hub. You can retrieve an image with a docker pull command.
+
+```bash
+docker pull jallu/cloudfrontbeat:0.1
+```
+
+#### Configuring Cloudfrontbeat on Docker
+
+The Docker image provides several methods for configuring Cloudfrontbeat. The conventional approach is to provide a configuration file and the IP Geolocation database via bind-mounted volumes, but it’s also possible to create a custom image with your configuration and IP Geolocation database included.
+
+#### Bind-Mounted Configuration
+
+One way to configure Cloudfrontbeat on Docker is to provide cloudfrontbeat.yml and GeoLite2-City.mmdb via bind-mounting. Note that the owner of the files has to be root in order to work.
+
+In this example we'll pass the AWS credentials as environment variables from a file, aws-credentials.list. The content of the file should look like this (copy paste your keys into the file):
+
+```bash
+AWS_ACCESS_KEY_ID=YOUR_KEY_ID
+AWS_SECRET_ACCESS_KEY=YOUR_SECRET
+```
+
+And then run the container with:
+
+```bash
+docker run \
+--env-file "$(pwd)"/aws-credentials.list \
+--mount type=bind,source="$(pwd)"/cloudfrontbeat.yml,target=/cloudfrontbeat/cloudfrontbeat.yml \
+--mount type=bind,source="$(pwd)"/GeoLite2-City.mmdb,target=/cloudfrontbeat/GeoLite2-City.mmdb \
+jallu/cloudfrontbeat:0.1
+```
+
+#### Custom Image Configuration
+
+It’s possible to embed your Cloudfrontbeat configuration and IP Geolocation database in a custom image. Here is an example Dockerfile to achieve this:
+
+```
+FROM jallu/cloudfrontbeat:0.1
+ADD cloudfrontbeat.yml /cloudfrontbeat
+ADD GeoLite2-City.mmdb /cloudfrontbeat
+```
+
+#### Custom Image
+
+The parent image for the Cloudfrontbeat Docker images is Alpine. It is easy to build your own image with help of the provided Dockerfile. However, the cloudfrontbeat binary has to be compiled before creating the image. Here is an example how to compile for Alpine:
+
+```bash
+docker run --rm \
+--mount type=bind,source="$(pwd)",target=/go/src/github.com/jarl-tornroos/cloudfrontbeat \
+-w /go/src/github.com/jarl-tornroos/cloudfrontbeat golang:1.9-alpine \
+sh -c "apk add --update gcc musl-dev git && \
+go get github.com/aws/aws-sdk-go/... && \
+go get github.com/oschwald/geoip2-golang/... && \
+go build"
 ```
