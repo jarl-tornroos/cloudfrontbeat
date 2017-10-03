@@ -95,9 +95,9 @@ The Docker image provides several methods for configuring Cloudfrontbeat. The co
 
 #### Bind-Mounted Configuration
 
-One way to configure Cloudfrontbeat on Docker is to provide cloudfrontbeat.yml and GeoLite2-City.mmdb via bind-mounting. Note that the owner of the files has to be root in order work.
+One way to configure Cloudfrontbeat on Docker is to provide cloudfrontbeat.yml and GeoLite2-City.mmdb via bind-mounting. Note that the owner of the files has to be root in order to work.
 
-In this example we'll pass the AWS credentials as environment variables from a file aws-credentials.list. The content of the file should look like this (Copy paste your keys into the file):
+In this example we'll pass the AWS credentials as environment variables from a file, aws-credentials.list. The content of the file should look like this (copy paste your keys into the file):
 
 ```bash
 AWS_ACCESS_KEY_ID=YOUR_KEY_ID
